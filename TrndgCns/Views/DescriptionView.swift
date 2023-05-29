@@ -159,7 +159,7 @@ class DescriptionView: UIView {
         }
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(65)
-            make.top.equalTo(self.snp.top).offset(38)
+            make.top.equalTo(self.snp.top).offset(44)
             make.height.equalTo(60)
             make.width.equalTo(300)
         }

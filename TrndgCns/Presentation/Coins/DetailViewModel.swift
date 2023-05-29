@@ -24,17 +24,18 @@ class DetailViewModel {
     var volume24HrNumberPublisher = CurrentValueSubject<String, Never>("")
     var nameOfCurrencyPublisher = CurrentValueSubject<String, Never>("")
     
+    var colorPublisher = CurrentValueSubject<UIColor.Type, Never>(UIColor.self)
+    
+    
+    
     func sendData() {
         priceUSDPublisher.send("$\(coin.price.asCurrencyWith2Decimals())")
-        percentPublisher.send("(\(coin.changePercent.asPercentString()))")
+        percentPublisher.send("\(coin.changePercent.asPercentString())")
         priceDifferencePublisher.send("\(coin.priceDifference.asCurrencyWith2Decimals())")
         marketCapNumberPublisher.send("$\(coin.marketCapBillion.asCurrencyWith2Decimals())b")
         supplyNumberPublisher.send("\(coin.supplyMillion.asCurrencyWith2Decimals())m")
         volume24HrNumberPublisher.send("$\(coin.volumeBillion.asCurrencyWith2Decimals())b")
         nameOfCurrencyPublisher.send(coin.nameCoin)
         
-        if (Double(coin.changePercent)) > 0 {
-            priceDifferencePublisher.send("+\(coin.priceDifference.asCurrencyWith2Decimals())")
-        }
     }
 }

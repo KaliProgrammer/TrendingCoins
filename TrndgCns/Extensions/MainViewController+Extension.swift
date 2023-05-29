@@ -36,8 +36,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let list = viewModel.coins.value.data[indexPath.row]
-        let viewModel = DescriptionViewModel(list: list)
-        let descriptionViewController = DescriptionViewController(viewModel.list)
+        let viewModel = DetailViewModel(coin: list)
+        let descriptionViewController = DescriptionViewController(viewModel.coin)
         navigationController?.pushViewController(descriptionViewController, animated: true)
     }
     

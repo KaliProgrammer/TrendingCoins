@@ -54,6 +54,9 @@ final class DescriptionViewController: UIViewController {
         .store(in: &cancellables)
         
         detailViewModel.percentPublisher
+            .map({
+                (Double(self.coin.changePercent)) > 0 ? "(+\($0))" : $0
+           })
             .sink { [weak self] percent in
             self?.descriptionView.percentLabel.text = percent
         }
@@ -88,14 +91,16 @@ final class DescriptionViewController: UIViewController {
             self?.descriptionView.nameLabel.text = nameOfCurrency
         }
         .store(in: &cancellables)
-   
-        if (Double(coin.changePercent)) < 0 {
-            self.descriptionView.percentLabel.textColor = UIColor.theme.percentColorMinus
-            self.descriptionView.priceDifferenceLabel.textColor = UIColor.theme.percentColorMinus
-        } else {
-            self.descriptionView.percentLabel.textColor = UIColor.theme.percentColorPlus
-            self.descriptionView.priceDifferenceLabel.textColor = UIColor.theme.percentColorPlus
-        }
+        
+        detailViewModel.colorPublisher
+            .map({
+                (Double(self.coin.changePercent)) > 0 ? $0.theme.percentColorPlus : $0.theme.percentColorMinus
+            })
+            .sink { [weak self] color in
+                self?.descriptionView.percentLabel.textColor = color
+                self?.descriptionView.priceDifferenceLabel.textColor = color
+            }
+            .store(in: &cancellables)
     }
     
     //Setup UI elements
