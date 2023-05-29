@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00661742A2529E6001C8E6C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00661732A2529E6001C8E6C /* DetailViewModel.swift */; };
 		D02395BA2A193ED20026A378 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02395B92A193ED20026A378 /* AppDelegate.swift */; };
 		D02395BC2A193ED20026A378 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02395BB2A193ED20026A378 /* SceneDelegate.swift */; };
 		D02395BE2A193ED20026A378 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02395BD2A193ED20026A378 /* MainViewController.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D00661732A2529E6001C8E6C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		D02395B62A193ED20026A378 /* TrndgCns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrndgCns.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02395B92A193ED20026A378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D02395BB2A193ED20026A378 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				D02395F22A198B2A0026A378 /* CoinsViewModel.swift */,
 				D02396032A1ABA340026A378 /* DescriptionViewModel.swift */,
+				D00661732A2529E6001C8E6C /* DetailViewModel.swift */,
 				D02395E72A197B650026A378 /* CoinLogoViewModel.swift */,
 			);
 			path = Coins;
@@ -276,6 +279,7 @@
 				D02395F92A1A714E0026A378 /* SearchBar+Extension.swift in Sources */,
 				D02396062A1ABC990026A378 /* DescriptionView.swift in Sources */,
 				D02395DF2A1961350026A378 /* UIView+Extension.swift in Sources */,
+				D00661742A2529E6001C8E6C /* DetailViewModel.swift in Sources */,
 				D02395F72A19AAF60026A378 /* Constants.swift in Sources */,
 				D02395D92A194BF30026A378 /* Coins.swift in Sources */,
 				D02395BA2A193ED20026A378 /* AppDelegate.swift in Sources */,

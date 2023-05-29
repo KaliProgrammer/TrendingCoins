@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import Combine
 
 final class DescriptionViewController: UIViewController {
     var descriptionView = DescriptionView()
     var coin: Datum
+    var cancellables = Set<AnyCancellable>()
+
     
     init(_ coin: Datum) {
         self.coin = coin
@@ -26,7 +29,7 @@ final class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         self.view.backgroundColor = UIColor.theme.backgroundColor
-        configureCoinDetails()
+        setupBindings()
         setupNavBar()
     }
     
@@ -40,22 +43,58 @@ final class DescriptionViewController: UIViewController {
     }
     
     //Coins property configuration
-    func configureCoinDetails() {
-        descriptionView.priceUSDLabel.text = "$\(coin.price.asCurrencyWith2Decimals())"
-        descriptionView.percentLabel.text = "(\(coin.changePercent.asPercentString()))"
-        descriptionView.priceDifferenceLabel.text = "\(coin.priceDifference.asCurrencyWith2Decimals())"
-        descriptionView.marketCapNumberLabel.text = "$\(coin.marketCapBillion.asCurrencyWith2Decimals())b"
-        descriptionView.supplyNumberLabel.text = "\(coin.supplyMillion.asCurrencyWith2Decimals())m"
-        descriptionView.volume24HrNumberLabel.text = "$\(coin.volumeBillion.asCurrencyWith2Decimals())b"
-        descriptionView.nameLabel.text = coin.nameCoin
-
+    func setupBindings() {
+        let detailViewModel = DetailViewModel(coin: coin)
+        detailViewModel.sendData()
+        
+        detailViewModel.priceUSDPublisher
+            .sink { [weak self] price in
+            self?.descriptionView.priceUSDLabel.text = price
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.percentPublisher
+            .sink { [weak self] percent in
+            self?.descriptionView.percentLabel.text = percent
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.priceDifferencePublisher
+            .sink { [weak self] difference in
+            self?.descriptionView.priceDifferenceLabel.text = difference
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.marketCapNumberPublisher
+            .sink { [weak self] marketCap in
+            self?.descriptionView.marketCapNumberLabel.text = marketCap
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.supplyNumberPublisher
+            .sink { [weak self] supplyNumber in
+            self?.descriptionView.supplyNumberLabel.text = supplyNumber
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.volume24HrNumberPublisher
+            .sink { [weak self] volume24HrNumber in
+            self?.descriptionView.volume24HrNumberLabel.text = volume24HrNumber
+        }
+        .store(in: &cancellables)
+        
+        detailViewModel.nameOfCurrencyPublisher
+            .sink { [weak self] nameOfCurrency in
+            self?.descriptionView.nameLabel.text = nameOfCurrency
+        }
+        .store(in: &cancellables)
+   
         if (Double(coin.changePercent)) < 0 {
             self.descriptionView.percentLabel.textColor = UIColor.theme.percentColorMinus
             self.descriptionView.priceDifferenceLabel.textColor = UIColor.theme.percentColorMinus
         } else {
             self.descriptionView.percentLabel.textColor = UIColor.theme.percentColorPlus
             self.descriptionView.priceDifferenceLabel.textColor = UIColor.theme.percentColorPlus
-            self.descriptionView.priceDifferenceLabel.text = "+\(coin.priceDifference.asCurrencyWith2Decimals())"
         }
     }
     
